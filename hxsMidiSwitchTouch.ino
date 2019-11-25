@@ -15,7 +15,6 @@
  * Todo:
  * 
  * Long press / Multipress functionality
- * Circuit diagram in fritzing
  * design & solder up PCB for EXP voltage divider and toeswitch pulldown resistor
  * Power capacitor for nextion screen?
  * design & print case
