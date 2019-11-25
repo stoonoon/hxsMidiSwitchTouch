@@ -8,12 +8,11 @@ At the moment the only touchscreen functionality is to cycle between preset page
 ## Still to do:
 
 - Midi PC messages
-- Looper controls preset page
 - Footswitch long press functionality
 - Multiple switch combination actions - probably just preset page up/down and enter programming mode?
 - Programming screen on nextion & associated code on arduino
-- Save custom programs to eeprom
-- Circuit diagrams
+- Ability to save/load custom programs to/from eeprom
+- power capacitor needed for nextion screen?
 - Document the calculations for the expression pedal log pot compensation
 - Document the wiring adapter for the wah pedal to expression pedal conversion.
 - Design an enclosure for it
