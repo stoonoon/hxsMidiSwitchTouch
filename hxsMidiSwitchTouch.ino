@@ -14,15 +14,11 @@
  * 
  * Todo:
  * 
- * Finish implementing all 8 footswitches
  * Long press / Multipress functionality
- * Command macros
- * Multiple pages, changeable from touchscreen
  * Circuit diagram in fritzing
  * design & solder up PCB for EXP voltage divider and toeswitch pulldown resistor
  * Power capacitor for nextion screen?
  * design & print case
- * Decent background graphic for screen
  * Add programability from touchscreen
  * Save programming updates to NVRAM
  * Load programming updates from NVRAM
