@@ -22,6 +22,17 @@ NexText t_fs6_line1 = NexText(1,15,"t_fs6_line1");
 NexText t_fs7_line0 = NexText(1,12,"t_fs7_line0");
 NexText t_fs7_line1 = NexText(1,16,"t_fs7_line1");
 
+NexText *footSwitchScreenLabels[footSwitchCount][labelLinesPerSwitch] = {
+    {&t_fs0_line0, &t_fs0_line1},
+    {&t_fs1_line0, &t_fs1_line1},
+    {&t_fs2_line0, &t_fs2_line1},
+    {&t_fs3_line0, &t_fs3_line1},
+    {&t_fs4_line0, &t_fs4_line1},
+    {&t_fs5_line0, &t_fs5_line1},
+    {&t_fs6_line0, &t_fs6_line1},
+    {&t_fs7_line0, &t_fs7_line1},
+    };
+
 NexButton main_prev_page_button = NexButton(1,17,"b_prev_page");
 NexButton main_next_page_button = NexButton(1,18,"b_next_page");
 NexButton other_prev_page_button = NexButton(2,1,"b0");
@@ -44,7 +55,7 @@ void main_prev_page_Release(void *ptr) {
     else {
         currentPage = totalPresetPages-1;
     }
-    updateFootSwitchAssignments();
+    updateScreenLabels();
 }
 
 void main_next_page_Release(void *ptr) {
@@ -53,7 +64,7 @@ void main_next_page_Release(void *ptr) {
   if (currentPage >= totalPresetPages) {
     currentPage =0;
   }
-  updateFootSwitchAssignments();
+  updateScreenLabels();
 }
 
 void other_prev_page_Release(void *ptr) {
