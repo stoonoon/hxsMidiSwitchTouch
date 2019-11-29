@@ -43,5 +43,6 @@ Function prototypes for functions using MidiMessage as parameter
 
 //07_footswitches.ino
 void setPageAction(int page, individualActionType action, MidiMessage *msg[footSwitchCount]);
+void setComboAction(int page, int fsA, int fsB, MidiMessage *msg);
 
 

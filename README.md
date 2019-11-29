@@ -8,8 +8,6 @@ At the moment the only touchscreen functionality is to cycle between preset page
 ## Still to do:
 
 - Midi PC messages
-- Footswitch long press functionality
-- Multiple switch combination actions - probably just preset page up/down and enter programming mode?
 - Programming screen on nextion & associated code on arduino
 - Ability to save/load custom programs to/from eeprom
 - power capacitor needed for nextion screen?

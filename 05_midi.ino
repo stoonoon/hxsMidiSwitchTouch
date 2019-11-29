@@ -83,7 +83,6 @@ MidiMessageMacro::MidiMessageMacro(MidiMessage *msg1, MidiMessage *msg2, MidiMes
 }//MidiMessageMacro 3x message constructor
 
 void MidiMessageMacro::sendToMidi() {
-    Serial.println("Got to MidiMessageMacro.sendToMidi()");
     for (int i=0; i<commandCount; i++) {
         midiDelay();
         commands[i]->sendToMidi();

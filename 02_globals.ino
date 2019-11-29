@@ -10,8 +10,8 @@ const int footSwitchPin[] = {9,8,7,6,5,4,3,2}; // pins for footswitch inputs
 const bool footSwitchDown = LOW; //because we are using pullup resistor and switch to GND
 const bool footSwitchUp = !footSwitchDown;
 
-int footSwitchCurrentValue[footSwitchCount]; //for current state of footswitch state
-int footSwitchLastValue[footSwitchCount]; //last known footswitch state so we know whether it has changed
+bool footSwitchCurrentValue[footSwitchCount]; //for current state of footswitch state
+//int footSwitchLastValue[footSwitchCount]; //last known footswitch state so we know whether it has changed
 
 enum individualActionType {SINGLE = 0, LONG=1, DOUBLE=2}; //different types of footswitch press available for any individual footswitch
 const int individualActionTypeCount = 3; // number of types in above enum
