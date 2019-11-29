@@ -15,7 +15,8 @@ MidiMessage *page3SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLoope
                         &hxsLooperStop, &hxsLooperPlay, &hxsLooperPlayOnce, &hxsLooperUndoRedo};
 MidiMessage *page4SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperFullSpeed, &hxsLooperHalfSpeed,
                         &hxsLooperStop, &hxsLooperPlay, &hxsLooperPlayOnce, &hxsLooperUndoRedo};
-    
+MidiMessage *page5SingleActions[] = {&hxsPC01A, &hxsPC01B, &hxsPC01C, &hxsTuner,
+                        &hxsPC02A, &hxsPC02B, &hxsPC02C, &hxsTapTempo};
     
 
 
@@ -51,6 +52,7 @@ void setupFootSwitchActions() { //initialise individualSwitchAction array with p
     setPageAction(2,SINGLE,page2SingleActions);
     setPageAction(3,SINGLE,page3SingleActions);
     setPageAction(4,SINGLE,page4SingleActions);
+    setPageAction(5,SINGLE,page5SingleActions);
     
     //set predefined long press actions
     individualSwitchAction[0][0][LONG]=&hxsTuner;

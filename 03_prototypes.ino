@@ -8,7 +8,7 @@ class MidiMessage {
         virtual void sendToMidi();
         bool isValidSingleMessage(); // used to prevent macro nesting 
     protected:
-        enum MidiMsgType {CC=1, MACRO=5, NOT_KNOWN=99}; // may need to add PC, SYSEX
+        enum MidiMsgType {CC=1, PC=2, MACRO=5, NOT_KNOWN=99}; // may need to add SYSEX at some point?
         MidiMsgType msgType; // used for downcasting to specific subclass type
         void setLabel(char* destLabel, char* sourceLabel); //  checks length of incoming label and shortens it if required before copying   
 };
@@ -26,6 +26,15 @@ class MidiCCMessage : public MidiMessage { //Control Change Message Type
         int controlValue;
         void sendToMidi() override;
 };
+
+class MidiPCMessage : public MidiMessage { //Program Change Message Type
+    public:
+        MidiPCMessage(int pn, char* label1, char* label2);
+        int programNumber;
+        void sendToMidi() override;
+};
+
+
 
 class MidiMessageMacro : public MidiMessage { //container for multiple messages to be sent as one action
     public:

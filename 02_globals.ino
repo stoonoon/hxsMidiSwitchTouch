@@ -11,7 +11,6 @@ const bool footSwitchDown = LOW; //because we are using pullup resistor and swit
 const bool footSwitchUp = !footSwitchDown;
 
 bool footSwitchCurrentValue[footSwitchCount]; //for current state of footswitch state
-//int footSwitchLastValue[footSwitchCount]; //last known footswitch state so we know whether it has changed
 
 enum individualActionType {SINGLE = 0, LONG=1, DOUBLE=2}; //different types of footswitch press available for any individual footswitch
 const int individualActionTypeCount = 3; // number of types in above enum
@@ -22,7 +21,7 @@ const int individualActionTypeCount = 3; // number of types in above enum
 #define MAX_MACRO_LENGTH 5
 const int labelLinesPerSwitch =2; 
 
-const int totalPresetPages = 5; // number of preset pages we are configuring
+const int totalPresetPages = 6; // number of preset pages we are configuring
 
 int currentPage=0; // menu preset page to load on boot
 

@@ -58,6 +58,23 @@ void MidiCCMessage::sendToMidi() {
 }//sendToMidi
 
 /*
+ * MidiPCMessage constructor and functions
+ */
+
+MidiPCMessage::MidiPCMessage(int pn, char* label1, char* label2) : MidiMessage() { // constructor for MIDI PC message
+    programNumber = pn;
+    msgType = PC;
+    setLabel(label[0], label1);
+    setLabel(label[1], label2);
+}//MidiPCMessage::MidiPCMessage
+
+void MidiPCMessage::sendToMidi() {
+    MIDI.sendProgramChange(programNumber,midiSendChannel);
+}//sendToMidi
+
+
+
+/*
  * MidiMessageMacro constructor and functions
  */
  
@@ -118,6 +135,13 @@ MidiCCMessage hxsLooperHalfSpeed = MidiCCMessage(66,64,"HALF","SPEED");
 
 MidiMessageMacro hxsPresetUpMacro = MidiMessageMacro(&hxsScrollMode, &hxsFS2, &hxsStompMode,"PRESET","UP");
 MidiMessageMacro hxsPresetDownMacro = MidiMessageMacro(&hxsScrollMode, &hxsFS1, &hxsStompMode,"PRESET","DOWN");
+
+MidiPCMessage hxsPC01A = MidiPCMessage(0,"PRESET","01A");
+MidiPCMessage hxsPC01B = MidiPCMessage(1,"PRESET","01B");
+MidiPCMessage hxsPC01C = MidiPCMessage(2,"PRESET","01C");
+MidiPCMessage hxsPC02A = MidiPCMessage(3,"PRESET","02A");
+MidiPCMessage hxsPC02B = MidiPCMessage(4,"PRESET","02B");
+MidiPCMessage hxsPC02C = MidiPCMessage(5,"PRESET","02C");
 
 
 
