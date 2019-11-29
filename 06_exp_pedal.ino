@@ -1,34 +1,39 @@
+//#define PEDAL_DEBUG
+
 float mapf(float x, float in_min, float in_max, float out_min, float out_max)
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 byte readPedalPos() {
-  float Vout= 0;
-  float R2= 0;
-  float buffer= 0;
-  int raw = analogRead(analogExpressionPedalPin);
-  if(raw) {
-      buffer = raw * Vin;
-      Vout = buffer / 1024.0;
-      buffer = (Vin/Vout) -1;
-      R2 = R1 * buffer;
-      if (R2 > 102000) {
-        return 127;
-        }
-      else if (R2 < 500) {
-        return 0;
-        }
-      else if (R2 > 84000) {
-        float pdl = mapf(R2, 88000, 103175, 66.6, 100);
-        return byte(pdl);
-        }
-      else {
-        float pdl = mapf(R2, 97.75, 81000, 0, 54);
-        return byte(pdl);
-        }
-  } //if(raw)
-  else return 0;
+    float Vout= 0;
+    float R2= 0;
+    float buffer= 0;
+    int raw = analogRead(analogExpressionPedalPin);
+    if(raw) {
+        buffer = raw * Vin;
+        Vout = buffer / 1024.0;
+        buffer = (Vin/Vout) -1;
+        R2 = R1 * buffer;
+        float pdl;
+        if (R2 > 100000) {
+        pdl= 127;
+    }
+    else if (R2 < 500) {
+        pdl= 0;
+    }
+    else if (R2 > 84000) {
+        pdl = mapf(R2, 88000, 100000, 66.6, 127);
+    }
+    else {
+        pdl = mapf(R2, 97.75, 81000, 0, 54);
+    }
+    #ifdef PEDAL_DEBUG
+    debugPedalInfo(R2, byte(pdl));
+    #endif
+    return byte(pdl);
+    } //if(raw)
+    else return 0;
 }// byte readPedalPos()
 
 byte lastExpPedalCCsent = 0;
@@ -70,3 +75,19 @@ void readExpToeswitch() {
     }
   }
 }
+
+
+#ifdef PEDAL_DEBUG
+void debugPedalInfo(float R, byte p) {// debug tester to report measured values of R2 to aid in pedal calibration}
+    const int updatePeriod = 1000; // delay time between reports
+    unsigned long currentMillis = millis();
+    static unsigned long lastResistanceDisplay = currentMillis;
+    if ((currentMillis-lastResistanceDisplay) > updatePeriod) {
+        Serial.print("EXP pedal measured resistance = ");
+        Serial.print(R);
+        Serial.print(", calculated MIDI value: ");
+        Serial.println(p);
+        lastResistanceDisplay=millis();
+        }
+}//printR2
+#endif
