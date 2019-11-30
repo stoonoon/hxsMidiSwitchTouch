@@ -1,9 +1,8 @@
 //#define PEDAL_DEBUG
-
-float mapf(float x, float in_min, float in_max, float out_min, float out_max)
-{
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+byte lastExpPedalCCsent = 0;
+unsigned long lastExpPedalCCsentMillis = millis();
+const unsigned int minExpPedalUpdateDelay = 4;
+unsigned long currentMillis;
 
 byte readPedalPos() {
     float Vout= 0;
@@ -36,12 +35,6 @@ byte readPedalPos() {
     else return 0;
 }// byte readPedalPos()
 
-byte lastExpPedalCCsent = 0;
-byte currentEXPpedal = 0; // 1 is EXP1, 2 is EXP2
-enum currentEXPpedal {BOTH, EXP1, EXP2};
-unsigned long lastExpPedalCCsentMillis = millis();
-const unsigned int minExpPedalUpdateDelay = 4;
-unsigned long currentMillis;
 
 void readExpPedalCC() {
   byte currentExpPedalCC = readPedalPos();
@@ -75,6 +68,12 @@ void readExpToeswitch() {
     }
   }
 }
+
+float mapf(float x, float in_min, float in_max, float out_min, float out_max)
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 
 
 #ifdef PEDAL_DEBUG

@@ -3,6 +3,9 @@ const int analogExpressionPedalPin= 0; //pin connected to wiper of Expression pe
 const int expToeswitchPin= 12; // pin connected to expression pedal toeswitch
 const int Vin= 5; // comparison voltage for expression pedal voltage divider
 const float R1= 100000; // known resistor value for expression pedal voltage divider
+enum EXPpedalOutput {BOTH, EXP1, EXP2};
+EXPpedalOutput currentEXPpedal = BOTH; // Which EXP to send to on the Stomp - enum currentEXPpedal {BOTH, EXP1, EXP2};
+
 
 //Footswitches
 const bool WAIT_FOR_LONG_PRESS = true; // if true, prevents a long press on a switch triggering single click and long press events. If false, single click event will be triggered immediately, and long press will follow it if switch is held down for long enough. Recommend setting this to false if timing is sensitive.
