@@ -15,6 +15,7 @@ const bool footSwitchUp = !footSwitchDown;
 const int individualActionTypeCount = 3; // number of types in above enum
 enum individualActionType {SINGLE = 0, LONG=1, DOUBLE=2}; //different types of footswitch press available for any individual footswitch
 bool footSwitchCurrentValue[footSwitchCount]; //for current state of footswitch state
+Bounce fsDebouncers[footSwitchCount];
 
 
 //Touchscreen menu
