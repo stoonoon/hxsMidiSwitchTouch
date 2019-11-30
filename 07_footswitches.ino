@@ -1,4 +1,3 @@
-
 Bounce fsDebouncers[footSwitchCount];
 
 MidiMessage *individualSwitchAction[footSwitchCount][totalPresetPages][individualActionTypeCount];//array to hold pointers for all action types / pages / footswitches
@@ -27,9 +26,6 @@ void setupFootSwitches() { //configure pins and attach debouncers
     fsDebouncers[i].attach(footSwitchPin[i]);
     fsDebouncers[i].interval(5); //interval in ms
     footSwitchCurrentValue[i] = footSwitchUp;
-    
-    //footSwitchLastValue[i] = footSwitchUp; // don't think we are using this any more.... probably will when long and double click implemented though
-    
   }//for loop
 }//setupFootSwitches()
 
@@ -58,11 +54,9 @@ void setupFootSwitchActions() { //initialise individualSwitchAction array with p
     individualSwitchAction[0][0][LONG]=&hxsTuner;
     
     //set predefined combination actions
-    
     setComboAction(-1, 0, 4, &hxsPresetDownMacro);
     setComboAction(-1, 3, 7, &hxsPresetUpMacro);
     setComboAction(-1, 2, 3, &hxsTuner);
-    
     
 }//setupFootSwitchActions()
 
@@ -111,12 +105,7 @@ bool fsIndexIsValid (int fsIndex){ //function to check if a given int is a valid
             }   
 }// fsIndexIsValid
 
-
-
 void readFootSwitches() { //check footswitches for any input
-    const bool WAIT_FOR_LONG_PRESS = true; // if true, prevents a long press on a switch triggering single click and long press events. If false, single click event will be triggered immediately, and long press will follow it if switch is held down for long enough. Recommend setting this to false if timing is sensitive.
-    const int longPressMillis = 1000; //how long a single switch must be held down for to trigger a long press event
-    const int doubleClickMillis = 500; //maximum time between consecutive clicks on a switch to trigger a double click event
     static int longPressWatcher = -1; //set to switch index of any potential long press candidate, or -1 if no valid candidate.
     static int totalFootSwitchesDown =0; //for tracking how many switches are pressed so we know whether to check for switch combination actions
     static unsigned long lastPressMillis[footSwitchCount] ={0}; //the last time the switch was pressed
@@ -199,4 +188,3 @@ void readFootSwitches() { //check footswitches for any input
         }//if ((lastPressMillis-lastReleaseMillis)>longPressMillis)
     }//for (int i=0; i<footSwitchCount; i++)
 }//readFootswitches()
-

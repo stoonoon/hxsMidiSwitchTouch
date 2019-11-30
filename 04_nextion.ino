@@ -4,7 +4,6 @@ NexPage page_other = NexPage(2,0,"page_other");
 NexPage page_program = NexPage(3,0,"page_program");
 NexPage page_error = NexPage(4,0,"page_error");
 
-
 NexText t_fs0_line0 = NexText(1,1,"t_fs0_line0");
 NexText t_fs0_line1 = NexText(1,5,"t_fs0_line1");
 NexText t_fs1_line0 = NexText(1,2,"t_fs1_line0");
@@ -46,6 +45,19 @@ NexTouch *nex_listen_list[] =  {
   &program_prev_page_button, &program_next_page_button,
   NULL  
 };
+
+void setupTouchscreen() {
+    nexInit();
+    main_prev_page_button.attachPop(main_prev_page_Release, &main_prev_page_button);
+    main_next_page_button.attachPop(main_next_page_Release, &main_next_page_button);
+    other_prev_page_button.attachPop(other_prev_page_Release, &other_prev_page_button);
+    other_next_page_button.attachPop(other_next_page_Release, &other_next_page_button);
+    program_prev_page_button.attachPop(program_prev_page_Release, &program_prev_page_button);
+    program_next_page_button.attachPop(program_next_page_Release, &program_next_page_button);
+    delay(500); // delay to pause on Booting screen - just for visual confirmation of restart
+    page_main.show();
+    updateScreenLabels();
+}//setupTouchscreen()
 
 void main_prev_page_Release(void *ptr) {
   //page_program.show();

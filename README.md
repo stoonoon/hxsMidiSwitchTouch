@@ -8,6 +8,7 @@ At the moment the only touchscreen functionality is to cycle between preset page
 ## Still to do:
 
 - switch preset page from footswitches
+- activate FS actions from touchscreen (probaby not combo actions, possibly not long press/double click - would need some switch/screen abstraction from processing logic)
 - Programming screen on nextion & associated code on arduino
 - Ability to save/load custom programs to/from eeprom
 - power capacitor needed for nextion screen?
