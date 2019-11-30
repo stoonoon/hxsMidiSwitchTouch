@@ -5,21 +5,33 @@ Still in the very early stages of how to go about this, so doubtless lots will c
 
 At the moment the only touchscreen functionality is to cycle between preset pages, but the 8 switches are working and sending midi messages over to the stomp. Expression pedal and toeswitch is working fairly well... I'm currently using a slightly modified crybaby wah with some dupont M-F wires between the circuit board and potentiometer/toeswitch harness... Not ideal as it's a log pot rather than a linear one but with some software compensation it seems good enough for testing for now.
 
+## Working so far
+- Touchscreen
+-- << and >> buttons cycle between preset pages
+-- Footswitch labels update as preset page changes
+-- Touching the footswitch label triggers a FS short click action for that switch
+- Midi
+-- PC / CC messages
+-- macro of several messages sent in a chain (needed for preset up/down functionality without relying on FS4/FS5 being dedicated to it in the Stomp global settings)
+- Expression pedal
+-- Converts resistance from 100kOhm log pot to MIDI byte
+-- Sends to Stomp as either EXP1, EXP2 or both
+-- Checks for changes in latching toeswitch & sends FS5 to Stomp
 ## Still to do:
 
 - switch preset page from footswitches
-- activate FS actions from touchscreen (probaby not combo actions, possibly not long press/double click - would need some switch/screen abstraction from processing logic)
 - Programming screen on nextion & associated code on arduino
 - Ability to save/load custom programs to/from eeprom
 - power capacitor needed for nextion screen?
 - Document the calculations for the expression pedal log pot compensation
 - Document the wiring adapter for the wah pedal to expression pedal conversion.
 - Design an enclosure for it
+- configurable for log/lin EXP pedal pots
+- configurable for latching/momentary toeswitch
 - All the other stuff I can't remember at the moment or haven't thought of yet
 
 ## Maybe considering, but probably not until v3
-
-- switch double-click detection
+- activate long press/double FS actions from touchscreen 
 - USB host midi capability - to be able to control Zoom B3/G3n/MS60B type pedals etc
 - extra MIDI in/out ports
 - bluetooth
