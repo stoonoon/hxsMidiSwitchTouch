@@ -20,6 +20,7 @@ At the moment the only touchscreen functionality is to cycle between preset page
 ## Still to do:
 
 - switch preset page from footswitches
+- toggle mode
 - Programming screen on nextion & associated code on arduino
 - Ability to save/load custom programs to/from eeprom
 - power capacitor needed for nextion screen?
