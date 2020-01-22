@@ -18,7 +18,6 @@ At the moment the only touchscreen functionality is to cycle between preset page
 -- Sends to Stomp as either EXP1, EXP2 or both
 -- Checks for changes in latching toeswitch & sends FS5 to Stomp
 ## Still to do:
-
 - switch preset page from footswitches
 - toggle mode
 - Programming screen on nextion & associated code on arduino
