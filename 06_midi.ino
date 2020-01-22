@@ -1,4 +1,4 @@
-MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial2, MIDI);
 const int midiDelayTime = 10; // time in ms between consecutive commands in macros
 const int midiSendChannel = 1; // MIDI channel for outbound messages
 
@@ -154,4 +154,3 @@ void midiDelay() { // adds a delay, if required, between consecutive Midi Messag
   }//if
   nextAllowedMessageMillis = millis() + midiDelayTime;
 }//midiDelay()
-
