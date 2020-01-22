@@ -1,4 +1,4 @@
-//#define PEDAL_DEBUG
+// #define PEDAL_DEBUG
 byte lastExpPedalCCsent = 0;
 unsigned long lastExpPedalCCsentMillis = millis();
 const unsigned int minExpPedalUpdateDelay = 4;
@@ -18,7 +18,7 @@ byte readPedalPos() {
         if (R2 > 100000) {
         pdl= 127;
     }
-    else if (R2 < 500) {
+    else if (R2 < 5000) { //trying 5000 was 500
         pdl= 0;
     }
     else if (R2 > 84000) {
