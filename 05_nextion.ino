@@ -5,20 +5,20 @@ NexPage page_program = NexPage(3,0,"page_program");
 NexPage page_error = NexPage(4,0,"page_error");
 
 NexText t_fs0_line0 = NexText(1,1,"t_fs0_line0"); // text label for FS0, line 0 on page 1
-NexText t_fs0_line1 = NexText(1,5,"t_fs0_line1"); // text label for FS0, line 1 on page 1
-NexText t_fs1_line0 = NexText(1,2,"t_fs1_line0"); // text label for FS1, line 0 on page 1
-NexText t_fs1_line1 = NexText(1,6,"t_fs1_line1"); // text label for FS1, line 1 on page 1
-NexText t_fs2_line0 = NexText(1,3,"t_fs2_line0"); // text label for FS2, line 0 on page 1
-NexText t_fs2_line1 = NexText(1,7,"t_fs2_line1"); // text label for FS2, line 1 on page 1
-NexText t_fs3_line0 = NexText(1,4,"t_fs3_line0"); // text label for FS3, line 0 on page 1
+NexText t_fs0_line1 = NexText(1,2,"t_fs0_line1"); // text label for FS0, line 1 on page 1
+NexText t_fs1_line0 = NexText(1,3,"t_fs1_line0"); // text label for FS1, line 0 on page 1
+NexText t_fs1_line1 = NexText(1,4,"t_fs1_line1"); // text label for FS1, line 1 on page 1
+NexText t_fs2_line0 = NexText(1,5,"t_fs2_line0"); // text label for FS2, line 0 on page 1
+NexText t_fs2_line1 = NexText(1,6,"t_fs2_line1"); // text label for FS2, line 1 on page 1
+NexText t_fs3_line0 = NexText(1,7,"t_fs3_line0"); // text label for FS3, line 0 on page 1
 NexText t_fs3_line1 = NexText(1,8,"t_fs3_line1"); // text label for FS3, line 1 on page 1
 NexText t_fs4_line0 = NexText(1,9,"t_fs4_line0"); // text label for FS4, line 0 on page 1
-NexText t_fs4_line1 = NexText(1,13,"t_fs4_line1"); // text label for FS4, line 1 on page 1
-NexText t_fs5_line0 = NexText(1,10,"t_fs5_line0"); // text label for FS5, line 0 on page 1
-NexText t_fs5_line1 = NexText(1,14,"t_fs5_line1"); // text label for FS5, line 1 on page 1
-NexText t_fs6_line0 = NexText(1,11,"t_fs6_line0"); // text label for FS6, line 0 on page 1
-NexText t_fs6_line1 = NexText(1,15,"t_fs6_line1"); // text label for FS6, line 1 on page 1
-NexText t_fs7_line0 = NexText(1,12,"t_fs7_line0"); // text label for FS7, line 0 on page 1
+NexText t_fs4_line1 = NexText(1,10,"t_fs4_line1"); // text label for FS4, line 1 on page 1
+NexText t_fs5_line0 = NexText(1,11,"t_fs5_line0"); // text label for FS5, line 0 on page 1
+NexText t_fs5_line1 = NexText(1,12,"t_fs5_line1"); // text label for FS5, line 1 on page 1
+NexText t_fs6_line0 = NexText(1,13,"t_fs6_line0"); // text label for FS6, line 0 on page 1
+NexText t_fs6_line1 = NexText(1,14,"t_fs6_line1"); // text label for FS6, line 1 on page 1
+NexText t_fs7_line0 = NexText(1,15,"t_fs7_line0"); // text label for FS7, line 0 on page 1
 NexText t_fs7_line1 = NexText(1,16,"t_fs7_line1"); // text label for FS7, line 1 on page 1
 
 NexText *footSwitchScreenLabels[footSwitchCount][labelLinesPerSwitch] = { //array for footswitchLabels pointers to make them accessible in iterated functions
@@ -39,7 +39,7 @@ NexButton main_next_page_button = NexButton(1,18,"b_next_page"); // >> button on
 //NexButton program_prev_page_button = NexButton(3,1,"b0");
 //NexButton program_next_page_button = NexButton(3,2,"b1");
 
-NexHotspot m_fs0 = NexHotspot(1, 3, "m_fs0");   // hotspot for fs0 on page 1
+NexHotspot m_fs0 = NexHotspot(1, 19, "m_fs0");   // hotspot for fs0 on page 1
 NexHotspot m_fs1 = NexHotspot(1, 20, "m_fs1");  // hotspot for fs1 on page 1
 NexHotspot m_fs2 = NexHotspot(1, 21, "m_fs2");  // hotspot for fs2 on page 1
 NexHotspot m_fs3 = NexHotspot(1, 22, "m_fs3");  // hotspot for fs3 on page 1
@@ -73,12 +73,13 @@ void setupTouchscreen() {
     //other_next_page_button.attachPop(other_next_page_Release, &other_next_page_button);
     //program_prev_page_button.attachPop(program_prev_page_Release, &program_prev_page_button);
     //program_next_page_button.attachPop(program_next_page_Release, &program_next_page_button);
-    delay(500); // delay to pause on Booting screen - just for visual confirmation of restart
+    delay(100); // delay to pause on Booting screen - just for visual confirmation of restart
     page_main.show();
     updateScreenLabels();
 }//setupTouchscreen()
 
 void main_prev_page_Release(void *ptr) {
+    Serial.println("main_prev_page_Release");
     if (currentPage > 0) {
         currentPage--;
     }
@@ -89,11 +90,12 @@ void main_prev_page_Release(void *ptr) {
 }
 
 void main_next_page_Release(void *ptr) {
-  currentPage++;
-  if (currentPage >= totalPresetPages) {
-    currentPage =0;
-  }
-  updateScreenLabels();
+    Serial.println("main_next_page_Release");
+    currentPage++;
+    if (currentPage >= totalPresetPages) {
+        currentPage =0;
+    }
+    updateScreenLabels();
 }
 
 void m_fs0_Press(void *ptr){
