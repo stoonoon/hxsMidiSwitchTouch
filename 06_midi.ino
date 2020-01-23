@@ -72,7 +72,33 @@ void MidiPCMessage::sendToMidi() {
     MIDI.sendProgramChange(programNumber,midiSendChannel);
 }//sendToMidi
 
+/*
+ * LocalMessage constructor and functions.
+ * 
+ * This is primarily to allow footswitch control of the current menu page, but could be useful later to allow control other aspects of controller operation
+ * 
+ * Given that this is not really a MidiMessage, it would probably make sense to refactor the code so MidiMessage is renamed ControllerAction or 
+ * something similar. Would also need to rename sendToMidi() to do() or something similar. Leaving as is for now while I test if it works as expected
+ * 
+ */
 
+LocalMessage::LocalMessage(byte cmd, char* label1, char* label2) : MidiMessage() { // constructor for LocalMessage
+  command = cmd;
+  msgType = LOCAL;
+  setLabel(label[0], label1);
+  setLabel(label[1], label2);
+}//LocalMessage::LocalMessage
+
+void LocalMessage::sendToMidi() {
+  switch (command){
+    case 0:
+      prevMenuPage();
+      break;
+    case 1:
+      nextMenuPage();
+      break;
+  } // switch(cmd)
+}//LocalMessage::sendToMidi()
 
 /*
  * MidiMessageMacro constructor and functions
@@ -143,6 +169,8 @@ MidiPCMessage hxsPC02A = MidiPCMessage(3,"PRESET","02A");
 MidiPCMessage hxsPC02B = MidiPCMessage(4,"PRESET","02B");
 MidiPCMessage hxsPC02C = MidiPCMessage(5,"PRESET","02C");
 
+LocalMessage switcherPageDown = LocalMessage(0, "MENU", "PgDOWN");
+LocalMessage switcherPageUp = LocalMessage(0, "MENU", "PageUP");
 
 
 

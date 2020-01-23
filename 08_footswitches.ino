@@ -1,17 +1,19 @@
 
 //default config for footswitch single tap actions
-MidiMessage *page0SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsPresetUpMacro, 
-                            &hxsFS1, &hxsFS2, &hxsFS3, &hxsPresetDownMacro};
+MidiMessage *page0SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsTuner, 
+                            &hxsFS1, &hxsFS2, &hxsFS3, &hxsTapTempo};
 MidiMessage *page1SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsFS5, 
                         &hxsFS1, &hxsFS2, &hxsFS3, &hxsFS4};
-MidiMessage *page2SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsPresetUpMacro, 
-                        &hxsAllBypass, &hxsNoBypass, &hxsTuner, &hxsPresetDownMacro};
-MidiMessage *page3SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperForward, &hxsLooperReverse, 
+MidiMessage *page2SingleActions[] = {&hxsFS4, &hxsFS5, &hxsPresetDownMacro, &hxsPresetUpMacro, 
+                        &hxsFS1, &hxsFS2, &hxsFS3, &hxsTapTempo};
+MidiMessage *page3SingleActions[] = {&hxsFS4, &hxsFS5, &hxsPresetDownMacro, &hxsPresetUpMacro,
+                        &hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsTapTempo};
+MidiMessage *page4SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperForward, &hxsLooperReverse, 
                         &hxsLooperStop, &hxsLooperPlay, &hxsLooperPlayOnce, &hxsLooperUndoRedo};
-MidiMessage *page4SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperFullSpeed, &hxsLooperHalfSpeed,
+MidiMessage *page5SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperFullSpeed, &hxsLooperHalfSpeed,
                         &hxsLooperStop, &hxsLooperPlay, &hxsLooperPlayOnce, &hxsLooperUndoRedo};
-MidiMessage *page5SingleActions[] = {&hxsPC01A, &hxsPC01B, &hxsPC01C, &hxsTuner,
-                        &hxsPC02A, &hxsPC02B, &hxsPC02C, &hxsTapTempo};
+//MidiMessage *page5SingleActions[] = {&hxsPC01A, &hxsPC01B, &hxsPC01C, &hxsTuner,
+//                        &hxsPC02A, &hxsPC02B, &hxsPC02C, &hxsTapTempo};
     
 
 
@@ -39,28 +41,38 @@ void setupFootSwitchActions() { //initialise individualSwitchAction array with p
     }//for (fsA)
     
     //set predefined actions
-    setPageAction(0,SINGLE,page0SingleActions);
-    setPageAction(1,SINGLE,page1SingleActions);
-    setPageAction(2,SINGLE,page2SingleActions);
-    setPageAction(3,SINGLE,page3SingleActions);
-    setPageAction(4,SINGLE,page4SingleActions);
-    setPageAction(5,SINGLE,page5SingleActions);
+    setWholePageActions(0,SINGLE,page0SingleActions);
+    setWholePageActions(1,SINGLE,page1SingleActions);
+    setWholePageActions(2,SINGLE,page2SingleActions);
+    setWholePageActions(3,SINGLE,page3SingleActions);
+    setWholePageActions(4,SINGLE,page4SingleActions);
+    setWholePageActions(5,SINGLE,page5SingleActions);
     
     //set predefined long press actions
-    individualSwitchAction[0][0][LONG]=&hxsTuner;
+    
+    //individualSwitchAction[0][0][LONG]=&hxsTuner;
+    setAllPagesAction(3, LONG, &hxsTuner);
     
     //set predefined combination actions
     setComboAction(-1, 0, 4, &hxsPresetDownMacro);
     setComboAction(-1, 3, 7, &hxsPresetUpMacro);
-    setComboAction(-1, 2, 3, &hxsTuner);
-    
+    setComboAction(-1, 6, 7, &hxsTuner);
+    setComboAction(-1, 0, 1, &switcherPageDown);
+    setComboAction(-1, 2, 3, &switcherPageUp);
+        
 }//setupFootSwitchActions()
 
-void setPageAction(int page, individualActionType action, MidiMessage *msg[footSwitchCount]) { //set all FS actions for a single page and action type
+void setAllPagesAction(int fs, individualActionType action, MidiMessage *msg) { // set an action which applies to all pages
+  for (int p=0; p<totalPresetPages; p++) {
+    individualSwitchAction[fs][p][action]=msg;
+  }//for loop
+} //setAllPagesAction
+
+void setWholePageActions(int page, individualActionType action, MidiMessage *msg[footSwitchCount]) { //set all FS actions for a single page and action type
     for (int fs=0; fs<footSwitchCount; fs++) {
         individualSwitchAction[fs][page][action]=msg[fs];
     }
-}//setPageAction
+}//setWholePageActions
 
 void setComboAction(int page, int fsA, int fsB, MidiMessage *msg) { //set an action for a 2x switch combination press
     //we need to sort the switches by index so we never have conficting settings with switch indexes swapped

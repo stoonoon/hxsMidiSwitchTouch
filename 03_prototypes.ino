@@ -8,7 +8,7 @@ class MidiMessage {
         virtual void sendToMidi();
         bool isValidSingleMessage(); // used to prevent macro nesting 
     protected:
-        enum MidiMsgType {CC=1, PC=2, MACRO=5, NOT_KNOWN=99}; // may need to add SYSEX at some point?
+        enum MidiMsgType {CC=1, PC=2, MACRO=5, LOCAL=6, NOT_KNOWN=99}; // may need to add SYSEX at some point?
         MidiMsgType msgType; // used for downcasting to specific subclass type
         void setLabel(char* destLabel, char* sourceLabel); //  checks length of incoming label and shortens it if required before copying   
 };
@@ -35,6 +35,20 @@ class MidiPCMessage : public MidiMessage { //Program Change Message Type
 };
 
 
+class LocalMessage : public MidiMessage {
+/*
+ * This is primarily to allow footswitch control of the current menu page, but could be useful later to allow control other aspects of controller operation
+ * 
+ * Given that this is not really a MidiMessage, it would probably make sense to refactor the code so MidiMessage is renamed ControllerAction or 
+ * something similar. Would also need to rename sendToMidi() to do() or something similar. Leaving as is for now while I test if it works as expected
+ * 
+ */
+  public:
+    LocalMessage(byte cmd, char* label1, char* label2);
+    int command;
+    void sendToMidi() override;
+};
+  
 
 class MidiMessageMacro : public MidiMessage { //container for multiple messages to be sent as one action
     public:
@@ -51,7 +65,6 @@ Function prototypes for functions using MidiMessage as parameter
 */
 
 //07_footswitches.ino
-void setPageAction(int page, individualActionType action, MidiMessage *msg[footSwitchCount]);
+void setAllPagesAction(int fs, individualActionType action, MidiMessage *msg);
+void setWholePageActions(int page, individualActionType action, MidiMessage *msg[footSwitchCount]);
 void setComboAction(int page, int fsA, int fsB, MidiMessage *msg);
-
-

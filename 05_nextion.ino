@@ -78,25 +78,33 @@ void setupTouchscreen() {
     updateScreenLabels();
 }//setupTouchscreen()
 
-void main_prev_page_Release(void *ptr) {
-    Serial.println("main_prev_page_Release");
-    if (currentPage > 0) {
-        currentPage--;
-    }
-    else {
+void prevMenuPage() {
+    Serial.println("prevMenuPage()");
+    currentPage--;
+    if (currentPage < 0) {
         currentPage = totalPresetPages-1;
     }
     updateScreenLabels();
-}
+} // prevMenuPage()
 
-void main_next_page_Release(void *ptr) {
-    Serial.println("main_next_page_Release");
+void nextMenuPage() {
+    Serial.println("nextMenuPage()");
     currentPage++;
     if (currentPage >= totalPresetPages) {
         currentPage =0;
     }
     updateScreenLabels();
-}
+} // nextMenuPage()
+
+void main_prev_page_Release(void *ptr) {
+    Serial.println("main_prev_page_Release");
+    prevMenuPage();
+} // main_prev_page_Release
+
+void main_next_page_Release(void *ptr) {
+    Serial.println("main_next_page_Release");
+    nextMenuPage();
+} // main_next_page_Release
 
 void m_fs0_Press(void *ptr){
     individualSwitchAction[0][currentPage][SINGLE]->sendToMidi();
@@ -129,4 +137,3 @@ void m_fs6_Press(void *ptr){
 void m_fs7_Press(void *ptr){
     individualSwitchAction[7][currentPage][SINGLE]->sendToMidi();
 } //void m_fs_7_press
-
