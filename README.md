@@ -17,20 +17,19 @@ At the moment the only touchscreen functionality is to cycle between preset page
 -- Converts resistance from 100kOhm log pot to MIDI byte
 -- Sends to Stomp as either EXP1, EXP2 or both
 -- Checks for changes in latching toeswitch & sends FS5 to Stomp
-## Still to do:
 - switch preset page from footswitches
-- toggle mode
+## Still to do:
+- toggle mode (FS function & label changes to next in list after press)
 - Programming screen on nextion & associated code on arduino
 - Ability to save/load custom programs to/from eeprom
-- power capacitor needed for nextion screen?
 - Document the calculations for the expression pedal log pot compensation
 - Document the wiring adapter for the wah pedal to expression pedal conversion.
-- Design an enclosure for it
 - configurable for log/lin EXP pedal pots
 - configurable for latching/momentary toeswitch
 - All the other stuff I can't remember at the moment or haven't thought of yet
 
 ## Maybe considering, but probably not until v3
+- power capacitor needed for nextion screen? seems OK without.. will see if it holds up
 - activate long press/double FS actions from touchscreen 
 - USB host midi capability - to be able to control Zoom B3/G3n/MS60B type pedals etc
 - extra MIDI in/out ports
