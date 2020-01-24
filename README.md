@@ -18,8 +18,10 @@ At the moment the only touchscreen functionality is to cycle between preset page
 -- Sends to Stomp as either EXP1, EXP2 or both
 -- Checks for changes in latching toeswitch & sends FS5 to Stomp
 - switch preset page from footswitches
+- toggle mode (FS function & label changes to next in list after press) - see looper Fwd/Rev and Full/Half speed for an example
+
 ## Still to do:
-- toggle mode (FS function & label changes to next in list after press)
+- Refactor the code so it plays nicely in VSCode - it doesn't seem to like multiple .ino files
 - Programming screen on nextion & associated code on arduino
 - Ability to save/load custom programs to/from eeprom
 - Document the calculations for the expression pedal log pot compensation
