@@ -26,6 +26,7 @@ Bounce fsDebouncers[footSwitchCount];
 #define MAX_MACRO_LENGTH 5
 const int labelLinesPerSwitch =2; 
 
-const int totalPresetPages = 6; // number of preset pages we are configuring
+const int totalPresetPages = 7; // number of preset pages we are configuring
 
 int currentPage=0; // menu preset page to load on boot
+const int maxTogglerSize = 3; // max allowed number of commands in a MidiMessageToggler

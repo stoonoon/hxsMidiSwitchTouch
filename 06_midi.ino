@@ -73,6 +73,55 @@ void MidiPCMessage::sendToMidi() {
 }//sendToMidi
 
 /*
+ * MidiMessageToggler constructor and functions
+ */
+
+MidiMessageToggler::MidiMessageToggler(MidiMessage * msg0, MidiMessage * msg1) { // constructor for 2 item MidiMessageToggler
+  msgType = TOGGLER;
+  commands[0] = msg0;
+  commands[1] = msg1;
+  cmdCount = 2;
+  currentCmd = 0;
+  setLabel(label[0], commands[currentCmd]->label[0]);
+  setLabel(label[1], commands[currentCmd]->label[1]); 
+}//MidiMessageToggler::MidiMessageToggler
+
+MidiMessageToggler::MidiMessageToggler(MidiMessage * msgs[], int count) { // constructor for MidiMessageToggler
+  // probably should add something here to prevent nested Togglers causing a recursion loop
+  msgType = TOGGLER;
+  if (count > maxTogglerSize) {
+    Serial.println("Error - attempt to load MidiMessageToggler with too many commands");
+    Serial.print("Attempted: ");
+    Serial.print(count);
+    Serial.print(", permitted: ");
+    Serial.println(maxTogglerSize);
+    cmdCount = maxTogglerSize;
+  }
+  else {
+    cmdCount = count;
+  }
+  for (int i=0; i<cmdCount; i++) {
+    commands[i] = msgs[i];
+  }
+  currentCmd = 0;
+  setLabel(label[0], commands[currentCmd]->label[0]);
+  setLabel(label[1], commands[currentCmd]->label[1]); 
+}//MidiMessageToggler::MidiMessageToggler
+
+void MidiMessageToggler::sendToMidi() {
+  // Send currently displayed message
+  commands[currentCmd]->sendToMidi();
+  // update self to next message in sequence
+  currentCmd++;
+  if (currentCmd >= cmdCount) {
+    currentCmd = 0;
+  }
+  setLabel(label[0], commands[currentCmd]->label[0]);
+  setLabel(label[1], commands[currentCmd]->label[1]); 
+  updateScreenLabels();
+} // MidiMessageToggler::sendToMidi() {
+
+/*
  * LocalMessage constructor and functions.
  * 
  * This is primarily to allow footswitch control of the current menu page, but could be useful later to allow control other aspects of controller operation
@@ -168,6 +217,9 @@ MidiPCMessage hxsPC01C = MidiPCMessage(2,"PRESET","01C");
 MidiPCMessage hxsPC02A = MidiPCMessage(3,"PRESET","02A");
 MidiPCMessage hxsPC02B = MidiPCMessage(4,"PRESET","02B");
 MidiPCMessage hxsPC02C = MidiPCMessage(5,"PRESET","02C");
+
+MidiMessageToggler hxsLooperRevToggle(&hxsLooperReverse, &hxsLooperForward);
+MidiMessageToggler hxsLooperSpeedToggle(&hxsLooperHalfSpeed, &hxsLooperFullSpeed);
 
 LocalMessage switcherPageDown = LocalMessage(0, "MENU", "PgDOWN");
 LocalMessage switcherPageUp = LocalMessage(0, "MENU", "PageUP");

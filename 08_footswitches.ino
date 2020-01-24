@@ -4,16 +4,16 @@ MidiMessage *page0SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsTuner,
                             &hxsFS1, &hxsFS2, &hxsFS3, &hxsTapTempo};
 MidiMessage *page1SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsFS5, 
                         &hxsFS1, &hxsFS2, &hxsFS3, &hxsFS4};
-MidiMessage *page2SingleActions[] = {&hxsFS4, &hxsFS5, &hxsPresetDownMacro, &hxsPresetUpMacro, 
+MidiMessage *page2SingleActions[] = {&hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsPresetUpMacro, 
+                        &hxsFS1, &hxsFS2, &hxsFS3, &hxsPresetDownMacro};
+MidiMessage *page3SingleActions[] = {&hxsFS4, &hxsFS5, &hxsPresetDownMacro, &hxsPresetUpMacro, 
                         &hxsFS1, &hxsFS2, &hxsFS3, &hxsTapTempo};
-MidiMessage *page3SingleActions[] = {&hxsFS4, &hxsFS5, &hxsPresetDownMacro, &hxsPresetUpMacro,
+MidiMessage *page4SingleActions[] = {&hxsFS4, &hxsFS5, &hxsPresetDownMacro, &hxsPresetUpMacro,
                         &hxsSnap1, &hxsSnap2, &hxsSnap3, &hxsTapTempo};
-MidiMessage *page4SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperForward, &hxsLooperReverse, 
+MidiMessage *page5SingleActions[] = {&hxsPC01A, &hxsPC01B, &hxsPC01C, &hxsTuner,
+                        &hxsPC02A, &hxsPC02B, &hxsPC02C, &hxsTapTempo};
+MidiMessage *page6SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperRevToggle, &hxsLooperSpeedToggle,
                         &hxsLooperStop, &hxsLooperPlay, &hxsLooperPlayOnce, &hxsLooperUndoRedo};
-MidiMessage *page5SingleActions[] = {&hxsLooperOverdub, &hxsLooperRec, &hxsLooperFullSpeed, &hxsLooperHalfSpeed,
-                        &hxsLooperStop, &hxsLooperPlay, &hxsLooperPlayOnce, &hxsLooperUndoRedo};
-//MidiMessage *page5SingleActions[] = {&hxsPC01A, &hxsPC01B, &hxsPC01C, &hxsTuner,
-//                        &hxsPC02A, &hxsPC02B, &hxsPC02C, &hxsTapTempo};
     
 
 
@@ -47,6 +47,7 @@ void setupFootSwitchActions() { //initialise individualSwitchAction array with p
     setWholePageActions(3,SINGLE,page3SingleActions);
     setWholePageActions(4,SINGLE,page4SingleActions);
     setWholePageActions(5,SINGLE,page5SingleActions);
+    setWholePageActions(6,SINGLE,page6SingleActions);
     
     //set predefined long press actions
     
