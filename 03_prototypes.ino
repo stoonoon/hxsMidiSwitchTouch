@@ -2,7 +2,7 @@
 Class prototypes for MidiMessage and derived classes
 */
 
-class MidiMessage {
+class MidiMessage { // this should probably be renamed FootswitchAction
     public:
         char label[2][(FOOTSWITCH_LABEL_MAX_LENGTH+1)];
         virtual void sendToMidi();
